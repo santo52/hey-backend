@@ -1,0 +1,7 @@
+<?php 
+
+$DB_HOST = "localhost";   #Localhost o IP
+$DB_USER = "root";          #Usuario de la dB
+$DB_PASSWORD = "";   #Contraseña de la dB
+$DB_NAME = "nombre base de datos";       #Nombre de la db
+$DB_PORT = "3306";

@@ -19,7 +19,6 @@ services:
     depends_on:
       - db
     volumes:
-      - ./apache.conf:/etc/apache2/sites-enabled/000-default.conf
       - ./:/var/www/html/
     ports:
       - "4000:80"
