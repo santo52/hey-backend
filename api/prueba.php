@@ -1,11 +1,12 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'] . '/utils/Route.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/utils/Database.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/hey-backend/utils/Route.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/hey-backend/utils/Database.php');
 
-$db = new Database();
+
 
 Route::getAll(function($request) {
+    $db = new Database();
     $data = $db->query("SELECT * FROM prueba")->resultset();
     /** Opcion 2
      * $data = $db->query("SELECT * FROM prueba")
@@ -15,6 +16,7 @@ Route::getAll(function($request) {
 });
 
 Route::getOne(function($id, $request) {
+      $db = new Database();
     $data = $db->query("SELECT * FROM prueba where id_prueba='" . $id . "'")->single();
     /** Opcion 2
      * $data = $db->query("SELECT * FROM prueba where id_prueba=1")
@@ -24,7 +26,8 @@ Route::getOne(function($id, $request) {
 });
 
 Route::create(function($request) {
-    $db->query("INSERT INTO prueba (name) VALUES ('este es un nombre')")->execute();
+      $db = new Database();
+    $db->query("INSERT INTO prueba (name) VALUES ('{$request['name']}')")->execute();
     /** Opcion 2
      * $data = $db->query("INSERT INTO prueba (name) VALUES ('este es un nombre')");
      * $data->execute();
@@ -39,7 +42,8 @@ Route::create(function($request) {
 });
 
 Route::update(function($id, $request) {
-    $db->query("UPDATE prueba SET name='nameeee' WHERE id=1")->execute();
+      $db = new Database();
+    $db->query("UPDATE prueba SET name ='{$request['name']}' WHERE id_prueba={$request['id']}")->execute();
     $data = $db->query("SELECT * FROM prueba where id_prueba='" . $id . "'")->single();
     $response['data'] = $data;
     $response['updated'] = true;
@@ -48,6 +52,9 @@ Route::update(function($id, $request) {
 });
 
 Route::delete(function($id, $request) {
-    $response['token'] = '5';
+      $db = new Database();
+      $db ->query("DELETE FROM prueba WHERE id_prueba='{$id}'")->execute();
+      $response['deleted'] = true;
+      $response['id'] = $id;
     echo json_encode($response);
 });

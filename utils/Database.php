@@ -1,6 +1,6 @@
 <?php  
 
-    require($_SERVER['DOCUMENT_ROOT'] . '/db.php');
+    require($_SERVER['DOCUMENT_ROOT'] . '/hey-backend/db.php');
 
     define("DB_HOST", $DB_HOST);
     define("DB_USER", $DB_USER);
